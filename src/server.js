@@ -4,12 +4,21 @@ import express from "express"; // another or new way ( need to make changes in p
 import { initDB } from "./config/db.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 import transactionsRoute from "./routes/transactionsRoute.js";
+import job from "./config/cron.js";
+
 
 dotenv.config()
 
 const app = express()  // creates an express application
+
+if(process.env.NODE_ENV === "production") job.start();
+
 const PORT = process.env.PORT || 5001 ;
 // const route = router();
+
+app.get("api/health", (req,res)=>{
+    res.status(200).json({status:"Ok"});
+})
 
 // middleware to check ( using for post api)
 app.use(express.json());

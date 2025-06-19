@@ -16,7 +16,7 @@ if(process.env.NODE_ENV === "production") job.start();
 const PORT = process.env.PORT || 5001 ;
 // const route = router();
 
-app.get("api/health", (req,res)=>{
+app.get("/api/health", (req,res)=>{
     res.status(200).json({status:"Ok"});
 })
 
